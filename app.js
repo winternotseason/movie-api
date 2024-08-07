@@ -20,10 +20,10 @@ const getChartData = async (releaseDts, movieNm) => {
   }
 };
 
-const getDetailInfo = async (release, moviename) => {
+const getDetailInfo = async (releaseDts, title) => {
   try {
     const response = await axios.get(
-      `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&releaseDts=${release}&title=${moviename}`
+      `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&releaseDts=${releaseDts}&title=${title}`
     );
     return response;
   } catch (err) {
@@ -50,8 +50,8 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/detail", (req, res) => {
-  const { moviename, release } = req.query;
-  getDetailInfo(release, moviename).then((response) => {
+  const { releaseDts, title } = req.query;
+  getDetailInfo(releaseDts, title).then((response) => {
     res.json(response.data);
   });
 });
