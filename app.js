@@ -44,7 +44,7 @@ const getSearchData = async (title) => {
 
 app.get("/api", (req, res) => {
   const { releaseDts, query: movieNm } = req.query;
-  getChartData(releaseDts, query).then((response) => {
+  getChartData(releaseDts, movieNm).then((response) => {
     res.json(response.data);
   });
 });
