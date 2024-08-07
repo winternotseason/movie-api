@@ -20,10 +20,10 @@ const getChartData = async (releaseDts, movieNm) => {
   }
 };
 
-const getDetailInfo = async (releaseDts, title) => {
+const getDetailInfo = async (release, moviename) => {
   try {
     const response = await axios.get(
-      `//api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&releaseDts=${releaseDt}&title=${title}`
+      `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&releaseDts=${release}&title=${moviename}`
     );
     return response;
   } catch (err) {
@@ -34,7 +34,7 @@ const getDetailInfo = async (releaseDts, title) => {
 const getSearchData = async (title) => {
   try {
     const response = await axios.get(
-      `//api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&title=${title}`
+      `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${process.env.KMDB_API_KEY}&title=${title}`
     );
     return response;
   } catch (err) {
@@ -50,17 +50,17 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/detail", (req, res) => {
-  const { releaseDts, title } = req.query;
-  getDetailInfo(releaseDts, title).then((response) => {
+  const { moviename, release } = req.query;
+  getDetailInfo(release, moviename).then((response) => {
     res.json(response.data);
   });
 });
 
-app.get('/api/search', (req,res) => {
+app.get("/api/search", (req, res) => {
   const { title } = req.query;
   getSearchData(title).then((response) => {
-    res.json(response.data)
-  })
-})
+    res.json(response.data);
+  });
+});
 
 module.exports = app;
