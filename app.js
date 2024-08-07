@@ -22,7 +22,7 @@ const getData = async (releaseDts,movieNm) => {
 }
 
 
-app.get('/api' , (req, res) => {
+app.get('/api' , async (req, res) => {
     const {releaseDts, query: movieNm} = req.query
 
     try {
