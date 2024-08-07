@@ -4,7 +4,10 @@ const cors = require("cors");
 const app = express();
 
 
-app.use(cors())
+app.use(cors({
+    origin: '*'
+}));
+
 
 const getData = async (releaseDts,movieNm) => {
     const url = `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${
