@@ -21,7 +21,8 @@ const getData = async (releaseDts, movieNm) => {
 };
 
 app.get("/api", (req, res) => {
-  const { releaseDts, query: movieNm } = req.query;
+  const { releaseDts, query } = req.query;
+  const movieNm = decodeURIComponent(query)
   getData(releaseDts, movieNm).then((response) => {
     res.json(response.data)
   })
