@@ -2,9 +2,9 @@ const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 const app = express();
-const port = 8080;
 
 
+app.use(cors())
 
 const getData = async (releaseDts,movieNm) => {
     const url = `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${
@@ -23,9 +23,7 @@ const getData = async (releaseDts,movieNm) => {
 
 
 app.get('/api' , (req, res) => {
-    const query = req.query;
-    const releaseDts = query.releaseDts
-    const movieNm = query.query
+    const {releaseDts, query: movieNm} = req.query
 
     try {
         const data = await getData(releaseDts, movieNm);
@@ -35,4 +33,5 @@ app.get('/api' , (req, res) => {
     }
 })
 
-app.listen(port, () => console.log("8080 server"));
+
+module.exports = app;
