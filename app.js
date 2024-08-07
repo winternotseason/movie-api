@@ -10,9 +10,6 @@ app.use(cors({
 
 
 const getData = async (releaseDts,movieNm) => {
-    const url = `https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${
-        process.env.KMDB_API_KEY
-      }`
     let res;
     try {
         res = await axios.get(`https://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=${
